@@ -21,11 +21,11 @@ pipeline {
         stage('Deploy Portfolio') {
             steps {
                 sh '''
-                # Remove any existing container named 'portfolio'
+                # Force remove the container AND release the port mapping
                 docker rm -f portfolio || true
                 
-                # Change the external port to 8081
-                docker run -d -p 8081:80 --name portfolio devops-portfolio
+                # Now run the new one on the clean port
+                docker run -d -p 3000:80 --name portfolio devops-portfolio
                 '''
             }
         }
