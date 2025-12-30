@@ -7,11 +7,48 @@
   <meta name="description" content="Projects by Muhammad Idrees - AI/ML, mobile, and cloud projects." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   <style>
     body { background: linear-gradient(135deg,#1a1a2e 0%,#16213e 100%); font-family: 'Inter', sans-serif; color: white }
     .gradient-text { background: linear-gradient(45deg,#00d4ff,#6366f1,#ff6b35); -webkit-background-clip:text; -webkit-text-fill-color:transparent }
     .nav-link { position: relative }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00d4ff, #6366f1);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
     .project-card { backdrop-filter: blur(8px); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px }
+
+    /* Animation + reveal styles (copied from index.html) */
+    .tech-card {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .tech-card:hover {
+      transform: translateY(-10px) rotateX(5deg);
+      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .reveal-element {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .reveal-element.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body class="text-white">
@@ -38,7 +75,7 @@
 
   <main class="max-w-7xl mx-auto px-6 pb-24">
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <a class="project-card p-6" href="projects/project1.html">
+      <a class="project-card p-6 tech-card reveal-element group cursor-pointer" href="projects/project1.html">
         <div class="text-4xl mb-4">🧠</div>
         <h3 class="text-xl font-semibold mb-2">AI-Powered CBT Therapy App</h3>
         <p class="text-gray-300 text-sm mb-4">Adaptive mental health support using AI chatbots and wearable integration.</p>
@@ -47,8 +84,7 @@
           <span class="px-3 py-1 bg-purple/10 text-purple rounded-full">ML</span>
         </div>
       </a>
-
-      <a class="project-card p-6" href="projects/project2.html">
+      <a class="project-card p-6 tech-card reveal-element group cursor-pointer" href="projects/project2.html">
         <div class="text-4xl mb-4">☕</div>
         <h3 class="text-xl font-semibold mb-2">Coffee Shop Profit Predictor</h3>
         <p class="text-gray-300 text-sm mb-4">Streamlit app predicting coffee shop profitability with ML models.</p>
@@ -57,8 +93,7 @@
           <span class="px-3 py-1 bg-purple/10 text-purple rounded-full">Python</span>
         </div>
       </a>
-
-      <a class="project-card p-6" href="projects/project3.html">
+      <a class="project-card p-6 tech-card reveal-element group cursor-pointer" href="projects/project3.html">
         <div class="text-4xl mb-4">🔍</div>
         <h3 class="text-xl font-semibold mb-2">Image Classification System</h3>
         <p class="text-gray-300 text-sm mb-4">Neural network-based image classification with computer vision techniques.</p>
