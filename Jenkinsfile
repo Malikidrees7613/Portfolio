@@ -1,28 +1,24 @@
 pipeline {
     agent any
     options {
-        // This stops Jenkins from trying the automatic checkout that is failing
         skipDefaultCheckout()
     }
     stages {
         stage('Cleanup and Checkout') {
             steps {
-                // Wipe the broken directory completely
-                deleteDir() 
-                
-                // Manually perform the clone
-                git branch: 'main', 
-                    url: 'https://github.com/Malikidrees7613/DevOps_Assignment_No_1.git'
+                deleteDir()
+                git branch: 'main', url: 'https://github.com/Malikidrees7613/DevOps_Assignment_No_1.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
+                // Using the Dockerfile shown in your screenshot
                 sh 'docker build -t devops-portfolio .'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Container') {
             steps {
                 sh '''
                 docker stop portfolio || true

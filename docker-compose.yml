@@ -1,6 +1,17 @@
-version: "3"
 services:
-  portfolio:
-    build: .
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
     ports:
-      - "3000:80"
+      - "8080:8080"
+      - "50000:50000"
+    container_name: jenkins-server
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+
+volumes:
+  jenkins_home:
