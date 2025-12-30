@@ -25,7 +25,7 @@ pipeline {
                 docker rm -f portfolio || true
                 
                 # Now run the new one on the clean port
-                docker run -d -p 3000:80 --name portfolio devops-portfolio
+                docker run -d -p 8081:80 --name portfolio devops-portfolio
                 '''
             }
         }
