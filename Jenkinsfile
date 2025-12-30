@@ -8,12 +8,6 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t devops-portfolio .'
-            }
-        }
-
         stage('Deploy Container') {
             steps {
                 sh '''
