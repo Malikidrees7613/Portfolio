@@ -18,14 +18,14 @@ pipeline {
             }
         }
 
-        stage('Deploy Container') {
-            steps {
-                sh '''
-                docker stop portfolio || true
-                docker rm portfolio || true
-                # Changed local port from 3000 to 8081
-                docker run -d -p 8081:80 --name portfolio devops-portfolio
-                '''
-            }
-        }
+        stage('Deploy Portfolio') {
+    steps {
+        sh '''
+        docker rm -f portfolio || true
+        # Using 8081 instead of 3000
+        docker run -d -p 8081:80 --name portfolio devops-portfolio
+        '''
+    }
+}
+    }
 }
