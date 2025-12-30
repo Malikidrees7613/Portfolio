@@ -1,28 +1,27 @@
-//af2ba28d82fb4cde8a6f78649f3f1e5d
 pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Malikidrees7613/DevOps_Assignment_No_1.git'
+                checkout scm
             }
         }
 
-        stage('Test Pipeline') {
+        stage('Build Docker Image') {
             steps {
-                echo "Pipeline is running successfully!"
-                sh "echo Hello from Jenkins Pipeline"
+                sh 'docker build -t devops-portfolio .'
             }
         }
-    }
 
-    post {
-        success {
-            echo "Pipeline test completed successfully."
-        }
-        failure {
-            echo "Pipeline test failed."
+        stage('Deploy Container') {
+            steps {
+                sh '''
+                docker stop portfolio || true
+                docker rm portfolio || true
+                docker run -d -p 3000:80 --name portfolio devops-portfolio
+                '''
+            }
         }
     }
 }
