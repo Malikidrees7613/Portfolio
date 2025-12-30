@@ -19,7 +19,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d -p 80:80 --name devops-portfolio-container devops-portfolio'
+                sh 'docker run -d -p 8081:80 --name devops-portfolio-container devops-portfolio'
             }
         }
     }
