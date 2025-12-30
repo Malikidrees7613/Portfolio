@@ -17,13 +17,9 @@ pipeline {
             }
         }
 
-        stage('Deploy for Testing') {
+        stage('Run Docker Container') {
             steps {
-                sh '''
-                docker rm -f portfolio-test || true
-                # Changing host port to 8081 for testing
-                docker run -d -p 8081:80 --name portfolio-test devops-portfolio
-                '''
+                sh 'docker run -d -p 80:80 --name devops-portfolio-container devops-portfolio'
             }
         }
     }
