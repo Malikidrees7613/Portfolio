@@ -19,12 +19,12 @@ pipeline {
         }
 
         stage('Deploy Portfolio') {
-    steps {
-        sh '''
-        docker rm -f portfolio || true
-        # Using 8081 instead of 3000
-        docker run -d -p 8081:80 --name portfolio devops-portfolio
-        '''
-    }
-    }
+            steps {
+                sh '''
+                docker rm -f portfolio || true
+                # Using 8081 instead of 3000
+                docker run -d -p 8081:80 --name portfolio devops-portfolio
+                '''
+            }
+        }
 }
