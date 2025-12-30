@@ -2,22 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Clean Workspace') {
-            steps {
-                // This deletes the corrupted workspace causing the "not in a git directory" error
-                cleanWs()
-            }
-        }
-
         stage('Checkout Code') {
             steps {
-                // This uses the URL/Credentials from your Job Configuration
-                checkout scm
+                // Clear the folder first to prevent "not a git directory" errors
+                cleanWs() 
+                
+                // Explicitly clone the repo
+                git branch: 'main', 
+                    url: 'https://github.com/Malikidrees7613/DevOps_Assignment_No_1.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
+                // Verify files exist before building
+                sh 'ls -la' 
                 sh 'docker build -t devops-portfolio .'
             }
         }
