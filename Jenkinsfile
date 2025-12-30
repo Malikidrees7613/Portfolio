@@ -1,13 +1,16 @@
 pipeline {
     agent any
-
+    options {
+        // This stops Jenkins from trying the automatic checkout that is failing
+        skipDefaultCheckout()
+    }
     stages {
-        stage('Checkout Code') {
+        stage('Cleanup and Checkout') {
             steps {
-                // Clear the folder first to prevent "not a git directory" errors
-                cleanWs() 
+                // Wipe the broken directory completely
+                deleteDir() 
                 
-                // Explicitly clone the repo
+                // Manually perform the clone
                 git branch: 'main', 
                     url: 'https://github.com/Malikidrees7613/DevOps_Assignment_No_1.git'
             }
@@ -15,13 +18,11 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // Verify files exist before building
-                sh 'ls -la' 
                 sh 'docker build -t devops-portfolio .'
             }
         }
 
-        stage('Deploy Container') {
+        stage('Deploy') {
             steps {
                 sh '''
                 docker stop portfolio || true
