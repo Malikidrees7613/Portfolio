@@ -18,14 +18,16 @@ pipeline {
             }
         }
 
-        stage('Deploy Container') {
-            steps {
-                sh '''
-                docker stop portfolio || true
-                docker rm portfolio || true
-                docker run -d -p 3000:80 --name portfolio devops-portfolio
-                '''
-            }
-        }
+        stage('Deploy Portfolio') {
+    steps {
+        sh '''
+        # Force remove the container and the name reservation
+        docker rm -f portfolio || true 
+        
+        # Run the new container
+        docker run -d -p 3000:80 --name portfolio devops-portfolio
+        '''
+    }
+}
     }
 }
