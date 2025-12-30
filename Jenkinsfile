@@ -13,19 +13,16 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // Using the Dockerfile shown in your screenshot
                 sh 'docker build -t devops-portfolio .'
             }
         }
 
-        stage('Deploy Portfolio') {
+        stage('Deploy for Testing') {
             steps {
                 sh '''
-                # Force remove the container AND release the port mapping
-                docker rm -f portfolio || true
-                
-                # Now run the new one on the clean port
-                docker run -d -p 8081:80 --name portfolio devops-portfolio
+                docker rm -f portfolio-test || true
+                # Changing host port to 8081 for testing
+                docker run -d -p 8081:80 --name portfolio-test devops-portfolio
                 '''
             }
         }
