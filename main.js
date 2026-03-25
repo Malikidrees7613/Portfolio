@@ -16,6 +16,7 @@ class PortfolioAnimations {
 
     // Typewriter Effect for Hero Section
     setupTypewriter() {
+        if (!document.querySelector('#typed-text')) return;
         const typed = new Typed('#typed-text', {
             strings: [
                 'AI/ML Developer',
@@ -39,6 +40,12 @@ class PortfolioAnimations {
         let canvas;
 
         window.setup = () => {
+            const parent = document.getElementById('particle-bg');
+            if (!parent) {
+                let tempCanvas = createCanvas(0, 0);
+                tempCanvas.style('display', 'none');
+                return;
+            }
             canvas = createCanvas(windowWidth, windowHeight);
             canvas.parent('particle-bg');
             canvas.style('position', 'absolute');
@@ -60,6 +67,7 @@ class PortfolioAnimations {
         };
 
         window.draw = () => {
+            if (!document.getElementById('particle-bg')) return;
             clear();
             
             // Update and draw particles
@@ -233,7 +241,7 @@ class PortfolioAnimations {
                             <a href="#home" class="block text-white hover:text-cyan transition-colors">Home</a>
                             <a href="about.html" class="block text-white hover:text-cyan transition-colors">About</a>
                             <a href="projects.html" class="block text-white hover:text-cyan transition-colors">Projects</a>
-                            <a href="contact.html" class="block text-white hover:text-cyan transition-colors">Contact</a>
+                            <a href="index.html#contact" class="block text-white hover:text-cyan transition-colors">Contact</a>
                         </div>
                     `;
                     nav.appendChild(mobileMenu);
